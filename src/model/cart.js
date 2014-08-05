@@ -1,13 +1,13 @@
-function Cart(scanedInfo){
+function Cart(scanedInfos){
     var custItem;
     var custItemList = [];
-    for (var i in scanedInfo){
-      var item = this.getCustItemByBarc(scanedInfo[i].barcode);
-      var promotion = new ProCalculate();
-      var custPro = promotion.getCustProBySinfo(scanedInfo[i]);
-      custItem = new CustItem(item, scanedInfo[i].num, custPro);
-      custItemList.push(custItem);
-    }
+    _.forEach(scanedInfos, function(scanedInfo) {
+         var item = _.find(loadAllItems(), {'barcode': scanedInfo.barcode});
+         var custPro = _.find(loadPromotions(), {'barcode': scanedInfo.barcode});
+         console.log('custPro'+custPro);
+         custItem = new CustItem(item, scanedInfo.num, custPro);
+         custItemList.push(custItem);
+      });
     this.custItemList = custItemList;
 }
 Cart.prototype.getCustItemByBarc = function (barcode){

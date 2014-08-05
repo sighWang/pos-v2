@@ -6,13 +6,12 @@ Pos.prototype.getShoppingList = function (inputs){
     var barcAndNumList = this.scanner.scanInputs(inputs);
     this.cart = new Cart(barcAndNumList);
     var custItemList = this.cart.getCustItemList(barcAndNumList);
-    var shoppingList = this.createShoppingList(custItemList);
+//    var shoppingList = this.createShoppingList(custItemList);
 
-    return shoppingList;
+    return custItemList;
 
 }
 Pos.prototype.createShoppingList = function (custItemList){
-  //  return 'sigh';
     dateDigitToString = function (num) {
       return num < 10 ? '0' + num : num;
       };
@@ -65,5 +64,7 @@ Pos.prototype.getCustList = function (preAccountList){
        '，单价：' + (preAccountList[i].item.price).toFixed(2) + '(元)，小计：' +
       this.getTotal(preAccountList[i]) + '(元)\n';
      }
+     console.log(_.compact([0,1,3]));
+
      return custList + '----------------------\n';
 }
