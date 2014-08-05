@@ -6,24 +6,13 @@ Pos.prototype.getShoppingList = function (inputs){
     var barcAndNumList = this.scanner.scanInputs(inputs);
     this.cart = new Cart(barcAndNumList);
     var custItemList = this.cart.getCustItemList(barcAndNumList);
-//    var shoppingList = this.createShoppingList(custItemList);
+    var shoppingList = this.createShoppingList(custItemList);
 
-    return custItemList;
+    return shoppingList;
 
 }
 Pos.prototype.createShoppingList = function (custItemList){
-    dateDigitToString = function (num) {
-      return num < 10 ? '0' + num : num;
-      };
-    var currentDate = new Date(),
-    year = dateDigitToString(currentDate.getFullYear()),
-    month = dateDigitToString(currentDate.getMonth() + 1),
-    date = dateDigitToString(currentDate.getDate()),
-    hour = dateDigitToString(currentDate.getHours()),
-    minute = dateDigitToString(currentDate.getMinutes()),
-    second = dateDigitToString(currentDate.getSeconds()),
-    formattedDateString = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
-
+    formattedDateString = (new moment()).format(yyyy--mm--dd);
     var shoppingList = '***<没钱赚商店>购物清单***\n' +
     '打印时间：' + formattedDateString + '\n' ;
     var custList = this.getCustList(custItemList);
@@ -64,7 +53,5 @@ Pos.prototype.getCustList = function (preAccountList){
        '，单价：' + (preAccountList[i].item.price).toFixed(2) + '(元)，小计：' +
       this.getTotal(preAccountList[i]) + '(元)\n';
      }
-     console.log(_.compact([0,1,3]));
-
      return custList + '----------------------\n';
 }
