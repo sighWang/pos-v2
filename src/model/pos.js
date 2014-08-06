@@ -21,17 +21,17 @@ Pos.prototype.createShoppingList = function (customItemList){
     return shoppingList + customList + freeList + subtotalAndSave;
 }
 Pos.prototype.getFreeList = function (customItemList){
-    var shoppingList = '挥泪赠送商品：\n';
+    var freeList = '挥泪赠送商品：\n';
     for(var i= 0; i < customItemList.length; i++){
-      if(customItemList[i].promotion.type !== 'no')
-      shoppingList += '名称：' + customItemList[i].item.name +
+      if(customItemList[i].promotion.type === 'BUY_TWO_GET_ONE_FREE')
+      freeList += '名称：' + customItemList[i].item.name +
       '，数量：' + customItemList[i].promotion.num + customItemList[i].item.unit + '\n';
     }
-    return shoppingList;
+    return freeList;
 }
 Pos.prototype.getTotal = function(customItem){
-    var customItem = customItem.item.price * (customItem.num - customItem.promotion.num);
-    return Utils.formatter.formatPrice(customItem);
+    var total = customItem.item.price * (customItem.num - customItem.promotion.num);
+    return Utils.formatter.formatPrice(total);
 }
 Pos.prototype.getSubtotalAndSave = function (customItemList){
     var subtotal = 0;

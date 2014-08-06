@@ -13,7 +13,7 @@ Scanner.prototype.scanInputs = function (inputs){
 
   var goods = inputs[i].split('-');
   num = goods[1] * num || num;
-  var barcodeCount = new BarcAndNum(goods[0], num);
+  var barcodeCount = new CustomCount(goods[0], num);
 
   function isElement(element){
     return element != inputs[i];
