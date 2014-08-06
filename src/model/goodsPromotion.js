@@ -1,4 +1,4 @@
-function PromotionInfo(proType, proNum){
-  this.proType = proType || 'no';
-  this.proNum = proNum || 0;
+function PromotionInfo(type, number){
+  this.proType = type || 'no';
+  this.proNum = number || 0;
 }

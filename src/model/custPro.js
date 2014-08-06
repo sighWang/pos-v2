@@ -1,4 +1,4 @@
-function CustPro(type,num){
+function CustPro(type,number){
   this.type = type || 'no';
-  this.num = num || 0;
+  this.num = number || 0;
 }

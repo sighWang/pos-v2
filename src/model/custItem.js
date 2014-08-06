@@ -1,5 +1,5 @@
-function CustItem(item, num, promotion){
+function CustItem(item, number, promotion){
   this.item = item;
-  this.num = num;
+  this.num = number;
   this.promotion = promotion;
 }

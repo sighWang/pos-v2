@@ -1,4 +1,4 @@
-function BarcAndNum(barcode, num) {
+function BarcAndNum(barcode, number) {
     this.barcode = barcode;
-    this.num = num;
+    this.num = number;
 }

@@ -12,13 +12,9 @@ Pos.prototype.getShoppingList = function (inputs){
 
 }
 Pos.prototype.createShoppingList = function (custItemList){
-    var momen = (new moment()).format();
-    var date = momen.substring(0,10).replace('-','年').replace('-','月') + '日 ';
-    var time = momen.substring(11,19);
-//    console.log(momen);
-    formattedDateString = date + time;
+
     var shoppingList = '***<没钱赚商店>购物清单***\n' +
-    '打印时间：' + formattedDateString + '\n' ;
+    '打印时间：' + Utils.formatter.getCurrentFormatTime() + '\n' ;
     var custList = this.getCustList(custItemList);
     var freeList = this.getFreeList(custItemList);
     var subtotalAndSave = this.getSubtotalAndSave(custItemList);
@@ -46,7 +42,7 @@ Pos.prototype.getSubtotalAndSave = function (preAccountList){
     }
     return '----------------------\n' +
     '总计：' + subtotal.toFixed(2) + '(元)\n' +
-    '节省：' + 'FarmatOutput.farmatNum(saveUp)' + '(元)\n' +
+    '节省：' + Utils.formatter.formatPrice(saveUp) + '(元)\n' +
     '**********************';
 }
 Pos.prototype.getCustList = function (preAccountList){
