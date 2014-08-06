@@ -10,7 +10,7 @@ Scanner.prototype.scanInputs = function (inputs){
     num++;
     idx = inputs.indexOf( inputs[i] , idx + 1 );
   }
-  
+
   var goods = inputs[i].split('-');
   num = goods[1] * num || num;
   var barcodeCount = new BarcAndNum(goods[0], num);
@@ -20,7 +20,7 @@ Scanner.prototype.scanInputs = function (inputs){
   }
  inputs = inputs.filter(isElement);
 
- barcAndNumList.push(barcodeCount);
+ barcodeCountLists.push(barcodeCount);
 }
-return barcAndNumList;
+return barcodeCountLists;
 }

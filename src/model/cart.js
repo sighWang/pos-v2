@@ -1,22 +1,21 @@
 function Cart(scanedInfos){
-    var custItem;
-    var custItemList = [];
+    var customItem;
+    var customItemList = [];
     _.forEach(scanedInfos, function(scanedInfo) {
          var item = _.find(loadAllItems(), {'barcode': scanedInfo.barcode});
-         var custPro;
+         var customPromotion;
          _.forEach(loadPromotions(), function(promotion) {
-           //need to do
              if(_.indexOf(promotion.barcodes, scanedInfo.barcode)){
                if(promotion.type === 'BUY_TWO_GET_ONE_FREE'){
-                 custPro = new CustPro(promotion.type, scanedInfo.num | 0);
+                 custonPromotion = new CustPro(promotion.type, scanedInfo.num | 0);
                }
              };
          });
-         custItem = new CustItem(item, scanedInfo.num, custPro);
-         custItemList.push(custItem);
+         customItem = new CustItem(item, scanedInfo.num, custonPromotion);
+         customItemList.push(customItem);
       });
-    this.custItemList = custItemList;
+    this.customItemList = customItemList;
 }
 Cart.prototype.getCustItemList = function (){
-    return this.custItemList;
+    return this.customItemList;
 }

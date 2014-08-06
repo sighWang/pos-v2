@@ -3,55 +3,55 @@ function Pos(){
 }
 Pos.prototype.getShoppingList = function (inputs){
 
-    var barcAndNumList = this.scanner.scanInputs(inputs);
-    this.cart = new Cart(barcAndNumList);
-    var custItemList = this.cart.getCustItemList(barcAndNumList);
-    var shoppingList = this.createShoppingList(custItemList);
+    var barcodeCountList = this.scanner.scanInputs(inputs);
+    this.cart = new Cart(barcodeCountList);
+    var customItemList = this.cart.getCustItemList(barcodeCountList);
+    var shoppingList = this.createShoppingList(customItemList);
 
     return shoppingList;
 
 }
-Pos.prototype.createShoppingList = function (custItemList){
+Pos.prototype.createShoppingList = function (customItemList){
 
     var shoppingList = '***<没钱赚商店>购物清单***\n' +
     '打印时间：' + Utils.formatter.getCurrentFormatTime() + '\n' ;
-    var custList = this.getCustList(custItemList);
-    var freeList = this.getFreeList(custItemList);
-    var subtotalAndSave = this.getSubtotalAndSave(custItemList);
-    return shoppingList + custList + freeList + subtotalAndSave;
+    var customList = this.getCustomList(customItemList);
+    var freeList = this.getFreeList(customItemList);
+    var subtotalAndSave = this.getSubtotalAndSave(customItemList);
+    return shoppingList + customList + freeList + subtotalAndSave;
 }
-Pos.prototype.getFreeList = function (preAccountList){
+Pos.prototype.getFreeList = function (customItemList){
     var shoppingList = '挥泪赠送商品：\n';
-    for(var i= 0; i < preAccountList.length; i++){
-      if(preAccountList[i].promotion.type !== 'no')
-      shoppingList += '名称：' + preAccountList[i].item.name +
-      '，数量：' + preAccountList[i].promotion.num + preAccountList[i].item.unit + '\n';
+    for(var i= 0; i < customItemList.length; i++){
+      if(customItemList[i].promotion.type !== 'no')
+      shoppingList += '名称：' + customItemList[i].item.name +
+      '，数量：' + customItemList[i].promotion.num + customItemList[i].item.unit + '\n';
     }
     return shoppingList;
 }
-Pos.prototype.getTotal = function(preAccount){
-    var preAccount = preAccount.item.price * (preAccount.num - preAccount.promotion.num);
-    return preAccount.toFixed(2);
+Pos.prototype.getTotal = function(customItem){
+    var customItem = customItem.item.price * (customItem.num - customItem.promotion.num);
+    return Utils.formatter.formatPrice(customItem);
 }
-Pos.prototype.getSubtotalAndSave = function (preAccountList){
+Pos.prototype.getSubtotalAndSave = function (customItemList){
     var subtotal = 0;
     var saveUp = 0;
-    for(var i= 0; i < preAccountList.length; i++){
-      subtotal += preAccountList[i].item.price * (preAccountList[i].num - preAccountList[i].promotion.num);
-      saveUp += preAccountList[i].item.price * preAccountList[i].promotion.num;
+    for(var i= 0; i < customItemList.length; i++){
+      subtotal += customItemList[i].item.price * (customItemList[i].num - customItemList[i].promotion.num);
+      saveUp += customItemList[i].item.price * customItemList[i].promotion.num;
     }
     return '----------------------\n' +
-    '总计：' + subtotal.toFixed(2) + '(元)\n' +
+    '总计：' + Utils.formatter.formatPrice(subtotal) + '(元)\n' +
     '节省：' + Utils.formatter.formatPrice(saveUp) + '(元)\n' +
     '**********************';
 }
-Pos.prototype.getCustList = function (preAccountList){
-     var custList = '----------------------\n';
-     for(var i= 0; i < preAccountList.length; i++){
-       custList += '名称：' + preAccountList[i].item.name +
-       '，数量：' + preAccountList[i].num + preAccountList[i].item.unit +
-       '，单价：' + (preAccountList[i].item.price).toFixed(2) + '(元)，小计：' +
-      this.getTotal(preAccountList[i]) + '(元)\n';
+Pos.prototype.getCustomList = function (customItemList){
+     var customList = '----------------------\n';
+     for(var i= 0; i < customItemList.length; i++){
+       customList += '名称：' + customItemList[i].item.name +
+       '，数量：' + customItemList[i].num + customItemList[i].item.unit +
+       '，单价：' + (customItemList[i].item.price).toFixed(2) + '(元)，小计：' +
+      this.getTotal(customItemList[i]) + '(元)\n';
      }
-     return custList + '----------------------\n';
+     return customList + '----------------------\n';
 }
